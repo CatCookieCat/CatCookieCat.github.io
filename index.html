@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>ERROR 503 - Service Unavailable</title>
@@ -10,25 +10,80 @@
             text-align: center; 
             margin-top: 20%; 
         }
-        /* Der Text ist fast schwarz und verschmilzt mit dem Hintergrund */
-        .hidden-hint { 
+        /* The initial hint is almost invisible against the black background */
+        #hidden-hint { 
             color: #050505; 
+        }
+        /* The terminal is hidden by default using CSS */
+        #terminal {
+            color: #00ff00; /* Hacker green */
+            margin-top: 10%;
+            display: none; 
+        }
+        input {
+            background: black;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 16px;
+        }
+        button {
+            background: #00ff00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="hidden-hint">
+    
+    <!-- Phase 2: The Console Hint -->
+    <div id="hidden-hint">
         <!-- initialize: sys_override() -->
         SYSTEM OFFLINE. AWAITING CONSOLE INPUT.
     </div>
 
+    <!-- Phase 3: The Secret Terminal -->
+    <div id="terminal">
+        <h2>[ RESTRICTED AGENCY ACCESS ]</h2>
+        <p>Enter the next number in the sequence to verify human intelligence:</p>
+        <p>0, 6, 24, 60, 120, ?</p>
+        <br>
+        <input type="text" id="passcode" placeholder="Enter number...">
+        <button onclick="checkCode()">SUBMIT</button>
+        <p id="response"></p>
+    </div>
+
     <script>
-        // Diese Funktion wartet darauf, dass jemand sie in der F12-Konsole ausführt
+        // This function is triggered when they type sys_override() in the F12 Console
         function sys_override() {
-            console.log("%c[ACCESS GRANTED]", "color: green; font-weight: bold; font-size: 20px;");
-            console.log("Identität bestätigt. Die nächste Phase erwartet dich in der Sandbox.");
-            console.log("Lade das Archiv herunter und betrete die Welt: [HIER LINK ZUR MINECRAFT-MAP EINTRAGEN]");
-            return "Verbindung erfolgreich hergestellt.";
+            // Hide the dark hint and reveal the green terminal
+            document.getElementById('hidden-hint').style.display = 'none';
+            document.getElementById('terminal').style.display = 'block';
+            
+            console.log("%c[SYSTEM OVERRIDE SUCCESSFUL]", "color: #00ff00; font-weight: bold; font-size: 16px;");
+            console.log("Visual interface restored. Look at the webpage.");
+            return "Initializing protocol...";
+        }
+
+        // This checks if they solved the math puzzle
+        function checkCode() {
+            var code = document.getElementById('passcode').value;
+            var responseDisplay = document.getElementById('response');
+            
+            // The answer to the sequence is 210 (Formula: n^3 - n)
+            if(code === "210") {
+                responseDisplay.style.color = "#00ff00";
+                responseDisplay.innerHTML = "ACCESS GRANTED. <br><br>Welcome to the agency. <br>Send this exact code to Zynix on Discord to claim your victory: <strong>OMEGA-77X</strong>";
+            } else {
+                responseDisplay.style.color = "red";
+                responseDisplay.innerHTML = "ACCESS DENIED. INCORRECT SEQUENCE.";
+            }
         }
     </script>
 </body>
