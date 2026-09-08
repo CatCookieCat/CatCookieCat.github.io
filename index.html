@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>ERROR 503 - Service Unavailable</title>
+    <style>
+        body { 
+            background-color: black; 
+            font-family: monospace; 
+            text-align: center; 
+            margin-top: 20%; 
+        }
+        /* Der Text ist fast schwarz und verschmilzt mit dem Hintergrund */
+        .hidden-hint { 
+            color: #050505; 
+        }
+    </style>
+</head>
+<body>
+    <div class="hidden-hint">
+        <!-- initialize: sys_override() -->
+        SYSTEM OFFLINE. AWAITING CONSOLE INPUT.
+    </div>
+
+    <script>
+        // Diese Funktion wartet darauf, dass jemand sie in der F12-Konsole ausführt
+        function sys_override() {
+            console.log("%c[ACCESS GRANTED]", "color: green; font-weight: bold; font-size: 20px;");
+            console.log("Identität bestätigt. Die nächste Phase erwartet dich in der Sandbox.");
+            console.log("Lade das Archiv herunter und betrete die Welt: [HIER LINK ZUR MINECRAFT-MAP EINTRAGEN]");
+            return "Verbindung erfolgreich hergestellt.";
+        }
+    </script>
+</body>
+</html>
