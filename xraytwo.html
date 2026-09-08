@@ -13,15 +13,25 @@
             overflow: hidden; 
             perspective: 800px; 
             font-family: Courier, monospace;
+            
+            
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-        /* The animation speed is 0.05 seconds. It spins too fast to read. */
+        
         .cube { 
             width: 200px; 
             height: 200px; 
             position: relative; 
             transform-style: preserve-3d; 
-            animation: spin 0.05s linear infinite; 
+            
+            
+            animation: spin 0.01s linear infinite; 
+            filter: blur(5px);
         }
+        
         .face { 
             position: absolute; 
             width: 200px; 
@@ -35,7 +45,11 @@
             font-size: 28px; 
             font-weight: bold;
             box-shadow: 0 0 15px #00ff00;
+            
+            
+            pointer-events: none;
         }
+        
         .front  { transform: translateZ(100px); }
         .back   { transform: rotateY(180deg) translateZ(100px); }
         .right  { transform: rotateY(90deg) translateZ(100px); }
@@ -49,13 +63,37 @@
     </style>
 </head>
 <body>
-    <div class="cube">
-        <div class="face front">PROCEED</div>
-        <div class="face back">TO</div>
-        <div class="face right">/</div>
-        <div class="face left">NIGHT</div>
-        <div class="face top">FALL</div>
-        <div class="face bottom">.HTML</div>
+    
+    <div class="cube" id="mainframe">
+        
     </div>
+
+    <script>
+       
+        const data = [
+            '\x50\x52\x4f\x43\x45\x45\x44', 
+            '\x54\x4f',                     
+            '\x45\x4e\x44\x50\x4f\x49\x4e\x54', 
+            '\x4e\x49\x47\x48\x54',         
+            '\x46\x41\x4c\x4c',             
+            '\x2e\x48\x54\x4d\x4c'          
+        ];
+        const sides = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+        const core = document.getElementById('mainframe');
+        
+        
+        data.forEach((word, index) => {
+            let panel = document.createElement('div');
+            panel.className = 'face ' + sides[index];
+            
+            word.split('').forEach(char => {
+                let letter = document.createElement('span');
+                letter.textContent = char;
+                panel.appendChild(letter);
+            });
+            
+            core.appendChild(panel);
+        });
+    </script>
 </body>
 </html>
